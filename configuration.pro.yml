@@ -1,0 +1,10 @@
+flask:
+  host: ~
+  port: 80
+  debug: false
+  database: oracle
+
+database:
+  type: oracle
+  host: ~
+  password: $ORACLE_DB_PASSWORD

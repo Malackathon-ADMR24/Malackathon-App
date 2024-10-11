@@ -1,0 +1,8 @@
+flask:
+  host: localhost
+  port: 8888
+  debug: true
+
+database:
+  type: sqlite
+  path: dev.db

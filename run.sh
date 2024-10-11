@@ -11,10 +11,13 @@ setup(){
 }
 
 start(){
+  local environment="$1"
+  local configfile="configuration.$environment.yml"
+
   echo "Loading virtual environment"
   source venv/bin/activate
-  echo "Running app"
-  python -m app
+  echo "Running app ($environment)"
+  python -m app "$configfile"
 }
 
 print_help(){
@@ -29,12 +32,16 @@ print_help(){
 # Main
 command="$1"
 
+
 case "${command}" in
   setup)
     setup
     ;;
   start)
-    start
+    start dev
+    ;;
+  start_pro)
+    start pro
     ;;
   help|"")
     print_help
