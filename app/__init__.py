@@ -17,7 +17,6 @@ def config(path):
     current_object = _configuration_object
     steps = path.split(".")
     for step in steps:
-        print("GET CONFIG ", current_object, step)
         current_object = current_object[step]
 
     if type(current_object) is str and current_object.startswith("$"):
