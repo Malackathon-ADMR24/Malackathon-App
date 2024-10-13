@@ -81,7 +81,6 @@ def setup(app: Flask):
 
     @app.get("/foo/bar")
     def llamar_mi_funcionalidad():
-
         return flask.jsonify(
             mi_funcionalidad()
         )
@@ -93,7 +92,8 @@ def setup(app: Flask):
 Las entidades conforman nuestro modelo de datos. Por eso tienen su correspondencia con una tabla en base de datos para
 almacenarlas y una clase en Python para manipularlas desde el código.
 
-1. Creamos la clase en un nuevo script del submodulo `domain`.
+1. Creamos la clase en un nuevo script del submodulo `domain`. La anotamos como una clase de datos para que implemente
+   algunas funciones por defecto.
 
    `app/domain/mientidad.py`
     ```python
