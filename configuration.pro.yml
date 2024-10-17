@@ -1,10 +1,8 @@
 flask:
-  host: ~
+  host: 10.0.0.223
   port: 80
   debug: false
-  database: oracle
 
 database:
-  type: oracle
-  host: ~
-  password: $ORACLE_DB_PASSWORD
+  type: sqlite
+  path: dev.db
