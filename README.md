@@ -1,19 +1,23 @@
 # Malackathon App
 
 > **Nota**: Hay algunas características del código que se dejaron preparadas en un esqueleto inicial de la aplicación y
-> que finalmente ni se usaron ni (por cuestiones de tiempo) se retiraron. Los scripts SQL para migración de base de datos
+> que finalmente ni se usaron ni (por cuestiones de tiempo) se retiraron. Los scripts SQL para migración de base de
+> datos
 > y las clases relacionadas con la entidad `Contact` son ejemplos de esto.
+
+Deploy: //http://143.47.57.2
 
 # Resumen de tecnologías y arquitectura
 
-Diagrama de componentes: Diagrama inicial 
+Diagrama de componentes: Diagrama inicial
 ![](doc/components)
 
 ## Backend
 
-- Esta escrita en Python con Flask como framework web. 
+- Esta escrita en Python con Flask como framework web.
 - Utiliza un sistema de plantillas HTML renderizadas con Jinja2 para construir y servir las vistas.
-- La aplicación está implementada con una arquitectura por capas, inspirada por la arquitectura hexagonal para que sea fácil de escalar y acoplar a diferentes puertos (bases de datos, controladores, APIs externas...)
+- La aplicación está implementada con una arquitectura por capas, inspirada por la arquitectura hexagonal para que sea
+  fácil de escalar y acoplar a diferentes puertos (bases de datos, controladores, APIs externas...)
 
 ## Frontend
 
@@ -21,7 +25,7 @@ Diagrama de componentes: Diagrama inicial
 - Leaflet para el renderizado de mapas en el cliente.
 - Pico.css para el estilo.
 
-### UI 
+### UI
 
 Navegación: Propuesta inicial
 
@@ -29,7 +33,8 @@ Navegación: Propuesta inicial
 
 ## Datos
 
-El acceso a datos se realiza directamente sobre un fichero SQLite de 38MB cargado en el servidor con los *datasets* preprocesados e importados.
+El acceso a datos se realiza directamente sobre un fichero SQLite de 38MB cargado en el servidor con los *datasets*
+preprocesados e importados.
 
 Diagrama relacional: Propuesta inicial
 ![](doc/er)
