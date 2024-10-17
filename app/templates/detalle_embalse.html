@@ -33,13 +33,55 @@
         <li><a href="{{embalse["wikidata_link"]}}">WikiData</a></li>
     </ul> 
 
+    <h2>Control Deslizante para Ajustar Valor</h2>
+    <div class="slider-container">
+    <input type="range" id="mySlider" min="0" max="500" value="50">
+    <div class="value-display">Valor: <span id="sliderValue">50</span></div>
+    </div>
     <div id="map"></div>
+
     <script>
         var map = L.map('map').setView([ {{embalse["coordenadas"]["x"]}} , {{embalse["coordenadas"]["y"]}} ], 13);
+        var marker = L.marker([{{embalse["coordenadas"]["x"]}} , {{embalse["coordenadas"]["y"]}}]).addTo(map);
+        var circle = L.circle([{{embalse["coordenadas"]["x"]}} , {{embalse["coordenadas"]["y"]}}], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 100000
+        }).addTo(map);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
+                
+        
+        // Obtener el slider y el elemento que mostrará el valor
+        const slider = document.getElementById("mySlider");
+        const sliderValueDisplay = document.getElementById("sliderValue");
+        // Función para actualizar el valor mostrado
+        // Añadir un evento para que se ejecute al mover el slider
+        slider.addEventListener("input", updateValue);
+        // Puedes usar el valor de esta forma en otra parte de tu código
+        // Por ejemplo, guardando el valor en una variable
+        function usarValor() {
+            const valorFinal = slider.value;
+            console.log("Valor utilizado en otra parte del código:", valorFinal);
+        }
+        // Llamar a la función para mostrar el valor inicial
+        updateValue();
+        //--------------------------------------------------
+        function updateValue() {
+            if(slider.value){
+                sliderValueDisplay.textContent = slider.value; // Actualiza el texto mostrado
+                console.log(slider.value);
+                circle.setRadius(slider.value*1000);
+            }
+        }
+    
+        
+    </script>
+
+    <script>
         var marker = L.marker([36.7178, -4.4256]).addTo(map);
         var circle = L.circle([36.7178, -4.4256], {
             color: 'red',

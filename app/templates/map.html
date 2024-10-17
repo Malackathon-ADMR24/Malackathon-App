@@ -14,21 +14,66 @@
 
 {% endblock %}
 {% block content %}
-
+    
+    <h2>Control Deslizante para Ajustar Valor</h2>
+    <div class="slider-container">
+    <input type="range" id="mySlider" min="0" max="500" value="50">
+    <div class="value-display">Valor: <span id="sliderValue">50</span></div>
+    </div>
     <div id="map"></div>
+
     <script>
-        var map = L.map('map').setView([36.7178, -4.4256], 13);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-        var marker = L.marker([36.7178, -4.4256]).addTo(map);
-        var circle = L.circle([36.7178, -4.4256], {
+        var map = L.map('map');
+        var marker = L.marker([1.0, -1.0]).addTo(map);
+        let circle = L.circle([1.0, -1.0], {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.5,
             radius: 100000
         }).addTo(map);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+                
+        
+        function success(pos) {
+            crd = pos.coords;
+            console.log(crd);
+            map.setView(L.latLng(pos.coords.latitude, pos.coords.longitude), 13)
+            marker.setLatLng(L.latLng(pos.coords.latitude, pos.coords.longitude));
+            circle.setLatLng(L.latLng(pos.coords.latitude, pos.coords.longitude));
+        }
+
+        function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+
+        navigator.geolocation.getCurrentPosition(success, error);
+        // Obtener el slider y el elemento que mostrará el valor
+        const slider = document.getElementById("mySlider");
+        const sliderValueDisplay = document.getElementById("sliderValue");
+        // Función para actualizar el valor mostrado
+        // Añadir un evento para que se ejecute al mover el slider
+        slider.addEventListener("input", updateValue);
+        // Puedes usar el valor de esta forma en otra parte de tu código
+        // Por ejemplo, guardando el valor en una variable
+        function usarValor() {
+            const valorFinal = slider.value;
+            console.log("Valor utilizado en otra parte del código:", valorFinal);
+        }
+        // Llamar a la función para mostrar el valor inicial
+        updateValue();
+        //--------------------------------------------------
+        function updateValue() {
+            if(slider.value){
+                sliderValueDisplay.textContent = slider.value; // Actualiza el texto mostrado
+                console.log(slider.value);
+                circle.setRadius(slider.value*1000);
+            }
+        }
+    
+        
     </script>
 
 {% endblock %}
