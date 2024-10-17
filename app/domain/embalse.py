@@ -14,7 +14,4 @@ class Embalse:
     altura_cimiento: str
     x: int
     y: int
-    google_view: str = None
-    openstreet: str = None
-    wikidata: str = None
-    informe: str = None
+    agua_total: int

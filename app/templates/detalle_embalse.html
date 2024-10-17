@@ -1,48 +1,47 @@
 {% extends "_main.html" %}
 {% block head %}
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
-    <style>
-        #map { height: 350px;}
-    </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""/>
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<style>
+    #map { height: 350px;}
+</style>
 
 {% endblock %}
 {% block content %}
 
-    <ul>
-        <li><b>Código</b>: {{embalse["codigo"]}}</li>
-        <li><b>Nombre</b>: {{embalse["nombre"]}}</li>
-        <li><b>Embalse</b>: {{embalse["embalse"]}}</li>
-        <li><b>Ubicado en</b>: {{embalse["provincia"]}}, {{embalse["ccaa"]}}</li>
-        <li><b>Demarcación</b>: {{embalse["demarcacion"]}}</li>
-        <li><b>Cauce</b>: {{embalse["cauce"]}}</li>
-        <li><b>Ámbito</b>: {{embalse["ambito"]}}</li>
-        <li><b>Cota</b>: {{embalse["cota_coron"]}}</li>
-        <li><b>Alt_cimen</b>: {{embalse["alt_cimen"]}}</li>
-        <li><b>Tipo</b>: {{embalse["tipo"]}}</li>
-        <li><b>Agua Total</b>: {{embalse["agua_total"]}}</li>
-        <li><a href="{{embalse["google_link"]}}">Google Maps</a></li>
-        <li><a href="{{embalse["osv_link"]}}">Open Street View</a></li>
-        <li><a href="{{embalse["informe_link"]}}">Informe</a></li>
-        <li><a href="{{embalse["wikidata_link"]}}">WikiData</a></li>
-    </ul> 
+<ul>
+    <li><b>Código</b>: {{embalse["codigo"]}}</li>
+    <li><b>Nombre</b>: {{embalse["nombre"]}}</li>
+    <li><b>Embalse</b>: {{embalse["embalse"]}}</li>
+    <li><b>Ubicado en</b>: {{embalse["provincia"]}}, {{embalse["ccaa"]}}</li>
+    <li><b>Demarcación</b>: {{embalse["demarcacion"]}}</li>
+    <li><b>Cauce</b>: {{embalse["cauce"]}}</li>
+    <li><b>Cota de la corona</b>: {{embalse["cota_corona"]}}</li>
+    <li><b>Altura de los cimientos</b>: {{embalse["altura_cimiento"]}}</li>
+    <li><b>Tipo</b>: {{embalse["tipo"]}}</li>
+    <li><b>Capacidad total</b>: {{embalse["agua_total"]}}</li>
+    <!--li><a href="{{embalse["google_link"]}}">Google Maps</a></li>
+    <li><a href="{{embalse["osv_link"]}}">Open Street View</a></li>
+    <li><a href="{{embalse["informe_link"]}}">Informe</a></li>
+    <li><a href="{{embalse["wikidata_link"]}}">WikiData</a></li-->
+</ul>
 
-    <div id="map"></div>
-    <script>
-        let coords = [ {{embalse["x"]}} , {{embalse["y"]}} ]
-        console.log(coords)
-        var map = L.map('map').setView(coords, 13);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-        var marker = L.marker(coords).addTo(map);
-    </script>
+<div id="map"></div>
+<script>
+    let coords = [ {{embalse["x"]}} , {{embalse["y"]}} ]
+    console.log(coords)
+    var map = L.map('map').setView(coords, 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    var marker = L.marker(coords).addTo(map);
+</script>
 
 {% endblock %}

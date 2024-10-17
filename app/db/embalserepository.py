@@ -12,13 +12,13 @@ class EmbalseRepository:
             self._map_row(row)
             for row
             in self.db_connection.execute_query(
-                "SELECT id, nombre, demarc, cauce, provincia, ccaa, tipo, cota_coron, alt_cimien, x, y FROM embalses join listado on embalses.embalse_nombre = listado.nombre")
+                "SELECT id, nombre, demarc, cauce, provincia, ccaa, tipo, cota_coron, alt_cimien, x, y, agua_total FROM embalses join listado on embalses.embalse_nombre = listado.nombre")
         ]
 
     def get(self, id: int) -> Embalse:
         return self._map_row(
             self.db_connection.execute_query(
-                "SELECT id, nombre, demarc, cauce, provincia, ccaa, tipo, cota_coron, alt_cimien, x, y FROM embalses join listado on embalses.embalse_nombre = listado.nombre WHERE id=?",
+                "SELECT id, nombre, demarc, cauce, provincia, ccaa, tipo, cota_coron, alt_cimien, x, y, agua_total FROM embalses join listado on embalses.embalse_nombre = listado.nombre WHERE id=?",
                 (id,))[0]
         )
 
@@ -27,10 +27,8 @@ class EmbalseRepository:
 
     def _map_row(self, row) -> Embalse:
         embalse = Embalse(*row)
-        embalse.x = embalse.x.replace(".", "")
-        embalse.y = embalse.y.replace(".", "")
-        embalse.x = float(embalse.x[:2] + "." + embalse.x[2:])
-        embalse.y = float(embalse.y[:2] + "." + embalse.y[2:])
+        embalse.x = float(embalse.x.replace(",", "."))
+        embalse.y = float(embalse.y.replace(",", "."))
         return embalse
 
     def __del__(self):

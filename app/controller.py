@@ -7,7 +7,7 @@ from .usecase.embalseoperations import get_embalse_list, get_embalse
 def setup(app):
     @app.get("/")
     def index():
-        return flask.render_template("index.html")
+        return flask.redirect("/embalse")
 
     @app.get("/map")
     def map():
