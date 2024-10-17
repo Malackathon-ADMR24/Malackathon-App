@@ -1,0 +1,22 @@
+{% extends "_main.html" %}
+{% block content %}
+
+<table>
+    <tr>
+      <th>Nombre</th>
+      <th>Provincia</th>
+      <th>CC.AA.</th>
+      <th>Capacidad</th>
+    </tr>
+    {% for embalse in embalses %}
+    <tr>
+        <td><a href="/embalse/{{embalse["id"]}">{{embalse["nombre"]}}</a></th>
+        <td>{{embalse["provincia"]}}</a></th>
+        <td>{{embalse["ccaa"]}}</a></th>
+        <td>{{embalse["agua_total"]}}</td>
+    </tr>
+    {% endfor %}
+
+  </table> 
+
+{% endblock %}

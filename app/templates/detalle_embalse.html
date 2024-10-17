@@ -16,9 +16,21 @@
 {% block content %}
 
     <ul>
-        <li>Nombre: {{embalse["nombre"]}}</li>
-        <li>Ubicado en: {{embalse["provincia"]}}, {{embalse["ccaa"]}}</li>
-        <li>Demarcación: {{embalse["demarcacion"]}}</li>
+        <li><b>Código</b>: {{embalse["codigo"]}}</li>
+        <li><b>Nombre</b>: {{embalse["nombre"]}}</li>
+        <li><b>Embalse</b>: {{embalse["embalse"]}}</li>
+        <li><b>Ubicado en</b>: {{embalse["provincia"]}}, {{embalse["ccaa"]}}</li>
+        <li><b>Demarcación</b>: {{embalse["demarcacion"]}}</li>
+        <li><b>Cauce</b>: {{embalse["cauce"]}}</li>
+        <li><b>Ámbito</b>: {{embalse["ambito"]}}</li>
+        <li><b>Cota</b>: {{embalse["cota_coron"]}}</li>
+        <li><b>Alt_cimen</b>: {{embalse["alt_cimen"]}}</li>
+        <li><b>Tipo</b>: {{embalse["tipo"]}}</li>
+        <li><b>Agua Total</b>: {{embalse["agua_total"]}}</li>
+        <li><a href="{{embalse["google_link"]}}">Google Maps</a></li>
+        <li><a href="{{embalse["osv_link"]}}">Open Street View</a></li>
+        <li><a href="{{embalse["informe_link"]}}">Informe</a></li>
+        <li><a href="{{embalse["wikidata_link"]}}">WikiData</a></li>
     </ul> 
 
     <div id="map"></div>
