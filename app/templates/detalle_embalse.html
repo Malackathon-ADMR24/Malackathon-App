@@ -43,12 +43,6 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
         var marker = L.marker(coords).addTo(map);
-        var circle = L.circle(coords, {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: 100000
-        }).addTo(map);
     </script>
 
 {% endblock %}
