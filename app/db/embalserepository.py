@@ -11,16 +11,17 @@ class EmbalseRepository:
         return [
             self._map_row(row)
             for row
-            in self.db_connection.execute_query("SELECT * FROM Embalse")
+            in self.db_connection.execute_query(
+                "SELECT * FROM embalses join listado on embalses.embalse_nombre = listado.nombre")
         ]
 
     def get(self, id: int) -> Embalse:
         return self._map_row(
-            self.db_connection.execute_query("SELECT * FROM embalse WHERE id=?", (id,))[0]
+            self.db_connection.execute_query("SELECT * FROM embalses WHERE id=?", (id,))[0]
         )
 
     def search(self, predicate: str) -> Embalse:
-        return self.db_connection.execute_query("SELECT * FROM embalse WHERE " + predicate)
+        return self.db_connection.execute_query("SELECT * FROM embalses WHERE " + predicate)
 
     def _map_row(self, row) -> Embalse:
         return Embalse(*row)
