@@ -1,19 +1,54 @@
 # Malackathon App
 
-## Ficheros y directorios
+> **Nota**: Hay algunas características del código que se dejaron preparadas en un esqueleto inicial de la aplicación y
+> que finalmente ni se usaron ni (por cuestiones de tiempo) se retiraron. Los scripts SQL para migración de base de datos
+> y las clases relacionadas con la entidad `Contact` son ejemplos de esto.
+
+# Resumen de tecnologías y arquitectura
+
+Diagrama de componentes: Diagrama inicial 
+![](doc/components)
+
+## Backend
+
+- Esta escrita en Python con Flask como framework web. 
+- Utiliza un sistema de plantillas HTML renderizadas con Jinja2 para construir y servir las vistas.
+- La aplicación está implementada con una arquitectura por capas, inspirada por la arquitectura hexagonal para que sea fácil de escalar y acoplar a diferentes puertos (bases de datos, controladores, APIs externas...)
+
+## Frontend
+
+- HTML renderizado desde el propio *backend* con JavaScript embedido.
+- Leaflet para el renderizado de mapas en el cliente.
+- Pico.css para el estilo.
+
+### UI 
+
+Navegación: Propuesta inicial
+
+![Esquema de navegación](doc/ui.png)
+
+## Datos
+
+El acceso a datos se realiza directamente sobre un fichero SQLite de 38MB cargado en el servidor con los *datasets* preprocesados e importados.
+
+Diagrama relacional: Propuesta inicial
+![](doc/er)
+
+# Ficheros y directorios
 
 - `run.sh`. Script maestro para el mantenimiento y lanzamiento de la aplicación. Ejecutar `./run.sh -h` para ver un
   mensaje de ayuda.
 - `configuration.xxx.yml`. Configuración en YAML de los entornos de la aplicación.
 - `requirements.txt`. Fichero de las dependencias de python.
 - `app`. Módulo python de la aplicación.
-    - `ddbb`. Submódulo con los componentes de conexión a base de datos.
-    - `usecase`. Submódulo con las funciones de los casos de uso de la aplicación.
-    - `domain`. Submódulo con las clases de dominio (entidades).
-    - `job`. Submódulo para definir las tareas periódicas de la aplicación.
-    - `templates`. Directorio con las plantillas HTML.
-    - `controller.py`. Controlador HTTP para mapear URLs de la API a los casos de uso.
-    - `__init__.py`. Script de inicialización del módulo principal.
+    - `ddbb`. **Capa de datos** Submódulo con los componentes de conexión a base de datos.
+        - `migration`. Submódulo con los los scripts de migracioń.
+    - `usecase`. **Capa de aplicación**. Submódulo con las funciones de los casos de uso de la aplicación.
+    - `domain`. **Capa de dominio**. Submódulo con las clases de dominio (entidades).
+    - `job`. **Puerto de saliad**. Submódulo para definir las tareas periódicas de la aplicación.
+    - `templates`. **UI** Directorio con las plantillas HTML.
+    - `controller.py`. **Puerto de salida** Controlador HTTP para mapear URLs de la API a los casos de uso.
+    - `__init__.py`. Script de inicialización del módulo principal (funciones de carga de configuración).
     - `__main__.py`. Ejecutable principal.
 
 ## Guía de desarrollo
