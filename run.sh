@@ -1,4 +1,8 @@
+set -e
+
 # Subruotines
+source secrets/secrets.sh
+
 setup(){
   if [ ! -d venv ]; then
     echo "Creating virtual environment"
@@ -20,10 +24,17 @@ start(){
   python -m app "$configfile"
 }
 
+deploy(){
+  ssh -i ${PRIVATE_KEY} "${SERVER_USER}@${SERVER_HOST}" 'pid=`sudo lsof -i:80 | grep python | grep LISTEN | awk '"'"'{print $2}'"'"'`;sudo kill $pid'
+  rsync -av -e "ssh -i ${PRIVATE_KEY}" --exclude-from='.rsyncignore' . "${SERVER_USER}@${SERVER_HOST}:${REMOTE_APP_DIR}"
+  ssh -i ${PRIVATE_KEY} "${SERVER_USER}@${SERVER_HOST}" "cd ${REMOTE_APP_DIR};( sudo ./run.sh start_pro )& disown"
+}
+
 print_help(){
   echo "$0 [-h] <command>"
   echo ""
   echo "command"
+  echo "  deploy   copia el proyecto al servidor remoto"
   echo "  help     muestra este mensaje de ayuda"
   echo "  start    levanta la aplicación"
   echo "  setup    prepara el entorno virtual e instala las dependencias"
@@ -42,6 +53,9 @@ case "${command}" in
     ;;
   start_pro)
     start pro
+    ;;
+  deploy)
+    deploy
     ;;
   help|"")
     print_help
