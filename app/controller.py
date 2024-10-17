@@ -7,6 +7,10 @@ def setup(app):
     @app.get("/")
     def index():
         return flask.render_template("index.html")
+    
+    @app.get("/map")
+    def map():
+        return flask.render_template("map.html")
 
     @app.get("/data/contacts")
     def get_contacts():
