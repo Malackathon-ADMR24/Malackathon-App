@@ -24,9 +24,13 @@ start(){
   python -m app "$configfile"
 }
 
+sync(){
+  rsync -av -e "ssh -i ${PRIVATE_KEY}" --exclude-from='.rsyncignore' . "${SERVER_USER}@${SERVER_HOST}:${REMOTE_APP_DIR}"
+}
+
 deploy(){
   ssh -i ${PRIVATE_KEY} "${SERVER_USER}@${SERVER_HOST}" 'pid=`sudo lsof -i:80 | grep python | grep LISTEN | awk '"'"'{print $2}'"'"'`;sudo kill $pid'
-  rsync -av -e "ssh -i ${PRIVATE_KEY}" --exclude-from='.rsyncignore' . "${SERVER_USER}@${SERVER_HOST}:${REMOTE_APP_DIR}"
+  sync
   ssh -i ${PRIVATE_KEY} "${SERVER_USER}@${SERVER_HOST}" "cd ${REMOTE_APP_DIR};( sudo ./run.sh start_pro )& disown"
 }
 
@@ -56,6 +60,9 @@ case "${command}" in
     ;;
   deploy)
     deploy
+    ;;
+  sync)
+    sync
     ;;
   help|"")
     print_help
