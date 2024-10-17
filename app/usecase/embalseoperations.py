@@ -7,6 +7,6 @@ def get_embalse(id: int) -> Embalse:
     return repository.get(id)
 
 
-def get_embalse_list(filter) -> Embalse:
+def get_embalse_list(filter=None) -> Embalse:
     repository = EmbalseRepository()
-    return repository.get_allr
+    return repository.get_all()

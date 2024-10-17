@@ -35,13 +35,15 @@
 
     <div id="map"></div>
     <script>
-        var map = L.map('map').setView([ {{embalse["coordenadas"]["x"]}} , {{embalse["coordenadas"]["y"]}} ], 13);
+        let coords = [ {{embalse["x"]}} , {{embalse["y"]}} ]
+        console.log(coords)
+        var map = L.map('map').setView(coords, 13);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
-        var marker = L.marker([36.7178, -4.4256]).addTo(map);
-        var circle = L.circle([36.7178, -4.4256], {
+        var marker = L.marker(coords).addTo(map);
+        var circle = L.circle(coords, {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.5,

@@ -1,41 +1,27 @@
 import flask
 
 from .usecase import contactoperations
+from .usecase.embalseoperations import get_embalse_list, get_embalse
 
-mock_embalse = {
-    "nombre": "Pepito",
-    "ccaa": "Andalucía",
-    "provincia": "Málaga",
-    "coordenadas": {"x": 36.7178, "y": -4.4256},
-    "demarcacion": "Demacración",
-    "agua_total": 100
-}
-mock_embalse2 = {
-    "nombre": "Jorgito",
-    "ccaa": "Andalucía",
-    "provincia": "Málaga",
-    "coordenadas": {"x": 36.7178, "y": -4.4256},
-    "demarcacion": "Demacración",
-    "agua_total": 100
-}
 
 def setup(app):
     @app.get("/")
     def index():
         return flask.render_template("index.html")
-    
+
     @app.get("/map")
     def map():
         return flask.render_template("map.html")
 
     @app.get("/embalse/")
     def lista_embalse():
-        return flask.render_template("lista_embalse.html", embalses=[mock_embalse, mock_embalse2])
-    
+        return flask.render_template("lista_embalse.html", embalses=[vars(e) for e in get_embalse_list()])
+
     @app.get("/embalse/<int:embalse_id>")
     def detalle_embalse(embalse_id: int):
-        
-        return flask.render_template("detalle_embalse.html", embalse=mock_embalse)
+        obj = vars(get_embalse(embalse_id))
+        print(obj)
+        return flask.render_template("detalle_embalse.html", embalse=obj)
 
     @app.get("/data/contacts")
     def get_contacts():

@@ -7,12 +7,14 @@ class Embalse:
     nombre: str
     demarcacion: str
     cauce: str
-    google_view: str
-    openstreet: str
-    wikidata: str
     provincia: str
     comunidad_autonoma: str
     tipo: str
     cota_corona: str
     altura_cimiento: str
-    informe: str
+    x: int
+    y: int
+    google_view: str = None
+    openstreet: str = None
+    wikidata: str = None
+    informe: str = None
